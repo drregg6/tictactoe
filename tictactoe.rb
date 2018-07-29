@@ -1,8 +1,18 @@
+=begin
+
+Player should be its own class?
+Player doesn't seem to be accessible unless you put in TicTacToe
+
+=end
+
 class TicTacToe
     attr_accessor :player, :players, :gameboard, :table, :puts_table
     attr_reader :show_board
 
     def initialize(p1, p2)
+        # default symbols, cannot be accessed or changed
+        # will have "random" for game order
+        # where game states "player.name"s turn to go
         @p1 = Player.new(p1, symbol="X")
         @p2 = Player.new(p2, symbol="O")
         @players = []
@@ -20,6 +30,19 @@ class TicTacToe
             bot_right: nil
         }
     end
+
+=begin
+
+should moves be underline?
+should i go back to large squares?
+
+the table will be dynamically updated
+each time a player sets a move
+
+after each move, .show_board will be fired
+to show the updated gameboard
+
+=end
 
     def make_board
         @top_left = @table[:top_left] == nil ? '_' : @table[:top_left]
@@ -62,6 +85,8 @@ class TicTacToe
     end
 end
 
+
+# example gameplay
 my_game = TicTacToe.new("Dave", "Regg")
 puts my_game.players[1].name
 puts my_game.players[1].symbol
