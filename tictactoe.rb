@@ -26,19 +26,15 @@ class TicTacToe
     end
 
     def make_board
-
-        # this will have if statements
-        # if :top_left = nil '_' else whoever owns the square
-        # @top_left = '_' if @table[:top_left] == nil
         @top_left = @table[:top_left] == nil ? '_' : @table[:top_left]
-        @top_mid = '|_|'
-        @top_right = '_'
-        @mid_left = '_'
-        @mid_mid = '|_|'
-        @mid_right = '_'
-        @bot_left = ' '
-        @bot_mid = '| |'
-        @bot_right = ' '
+        @top_mid = @table[:top_mid] == nil ? '|_|' : @table[:top_mid]
+        @top_right = @table[:top_right] == nil ? '_' : @table[:top_right]
+        @mid_left = @table[:mid_left] == nil ? '_' : @table[:mid_left]
+        @mid_mid = @table[:mid_mid] == nil ? '|_|' : @table[:mid_mid]
+        @mid_right = @table[:mid_right] == nil ? '_' : @table[:mid_right]
+        @bot_left = @table[:bot_left] == nil ? ' ' : @table[:bot_left]
+        @bot_mid = @table[:bot_mid] == nil ? '| |' : @table[:bot_mid]
+        @bot_right = @table[:bot_right] == nil ? ' ' : @table[:bot_right]
 
         @board = [
             [@top_left, @top_mid, @top_right],
