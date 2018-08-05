@@ -12,8 +12,8 @@ class TicTacToe
         # default symbols, cannot be accessed or changed
         # will have "random" for game order
         # where game states "player.name"s turn to go
-        @p1 = Player.new(p1, symbol="X")
-        @p2 = Player.new(p2, symbol="O")
+        @p1 = Player.new(p1="Player One", symbol="X")
+        @p2 = Player.new(p2="Player Two", symbol="O")
         @players = []
         @players << @p1 << @p2
         # new table needs to be built with each new game
@@ -26,8 +26,26 @@ class TicTacToe
     #     end
     # end
 
+    def play
+        @count = 0
+
+        while @count < 9
+            # if @count == 0
+            #     @player = players.sample
+            # else
+            #     @player == #opposite player
+            # end
+            @count += 1
+
+            puts "What's your name?"
+            @move = gets.chomp
+            puts @move
+        end
+    end
 
 
+
+    # Player just holds data
     class Player
         attr_accessor :name
         attr_reader :symbol
@@ -39,7 +57,7 @@ class TicTacToe
     end
 
 
-
+    # Gameboard holds logic
     class Gameboard
 
 
@@ -92,3 +110,4 @@ puts my_game.players
 # my_game.display_board
 # my_game.move(@p1, :mid_mid)
 my_game.table.display_board
+my_game.play
