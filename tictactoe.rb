@@ -6,7 +6,7 @@ Player doesn't seem to be accessible unless you put in TicTacToe
 =end
 
 class TicTacToe
-    attr_accessor :player, :players, :table, :gameboard
+    attr_accessor :player, :players, :board, :gameboard
 
     def initialize(p1, p2)
         # default symbols, cannot be accessed or changed
@@ -16,8 +16,8 @@ class TicTacToe
         @p2 = Player.new(p2="Player Two", symbol="O")
         @players = []
         @players << @p1 << @p2
-        # new table needs to be built with each new game
-        @table = Gameboard.new
+        # new board needs to be built with each new game
+        @board = Gameboard.new
     end
 
     # def move(player, location)
@@ -29,17 +29,22 @@ class TicTacToe
     def play
         @count = 0
 
-        while @count < 9
+        while @count < 3
             # if @count == 0
             #     @player = players.sample
             # else
             #     @player == #opposite player
             # end
-            @count += 1
 
-            puts "What's your name?"
-            @move = gets.chomp
-            puts @move
+            $stdout.puts "Please enter your move"
+            $stdout.flush
+            @location = gets.chomp.to_sym
+            @board.table[@location] = 'x'
+            @board.display_board
+
+            # $stdout.puts @move
+
+            @count += 1
         end
     end
 
@@ -59,6 +64,7 @@ class TicTacToe
 
     # Gameboard holds logic
     class Gameboard
+        attr_accessor :table
 
 
         def initialize
@@ -94,9 +100,11 @@ class TicTacToe
         end
 
         def display_board
+            puts "\n\n\n"
             create_board.each do |row|
                 puts row.join
             end
+            puts "\n\n\n"
         end
     end
 end
@@ -109,5 +117,5 @@ puts my_game.players[1].symbol
 puts my_game.players
 # my_game.display_board
 # my_game.move(@p1, :mid_mid)
-my_game.table.display_board
+my_game.board.display_board
 my_game.play
