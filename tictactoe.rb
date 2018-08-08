@@ -3,10 +3,27 @@
 Player should be its own class?
 Player doesn't seem to be accessible unless you put in TicTacToe
 
+TODO
+- random player's turn, then swap back and forth
+- add IF statements
+- IF square is taken, choose another one
+- IF square doesn't exist, choose another one
+- new method: check_for_winner
+- IF check_for_winner is true, exit game
+- display rules upon initialize
+
 =end
 
 class TicTacToe
     attr_accessor :player, :players, :board, :gameboard
+    @@rules = %q{
+
+        HOW TO PLAY TIC TAC TOE:
+        - sing a song
+        - play a long
+        - give up
+
+    }
 
     def initialize(p1, p2)
         # default symbols, cannot be accessed or changed
@@ -18,13 +35,8 @@ class TicTacToe
         @players << @p1 << @p2
         # new board needs to be built with each new game
         @board = Gameboard.new
+        puts @@rules
     end
-
-    # def move(player, location)
-    #     if @table.has_key?(location) && @table[location] == nil
-    #         @table[location] = @players[0].symbol
-    #     end
-    # end
 
     def play
         @count = 0
@@ -39,10 +51,12 @@ class TicTacToe
             $stdout.puts "Please enter your move"
             $stdout.flush
             @location = gets.chomp.to_sym
-            @board.table[@location] = 'x'
+            if @board.table.has_key?(@location) && @board.table[@location] == nil
+                @board.table[@location] = 'x'
+            else
+                puts "ERROR"
+            end
             @board.display_board
-
-            # $stdout.puts @move
 
             @count += 1
         end
