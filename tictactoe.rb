@@ -21,8 +21,8 @@ class TicTacToe
 
     def initialize(p1, p2)
         # default symbols, cannot be accessed or changed
-        @p1 = Player.new(p1="Player One", symbol="X")
-        @p2 = Player.new(p2="Player Two", symbol="O")
+        @p1 = Player.new(p1, symbol="X")
+        @p2 = Player.new(p2, symbol="O")
         @players = []
         @players << @p1 << @p2
         # new board needs to be built with each new game
@@ -35,7 +35,9 @@ class TicTacToe
         @turn = 0
 
         while @count < 9 # or if there's a winner
-            # select a random player
+
+
+            # select a random player // should be a separate method
             if @count == 0
                 @player_turn = @players.sample
 
@@ -49,27 +51,34 @@ class TicTacToe
                 @player_turn = @players[@turn]
             end
 
-            # a capitol %Q is used in order to use string interpolation
-            $stdout.puts %Q{
-                #{@player_turn.name}, please select your move
 
-                top_left | top_mid | top_right
-                mid_left | mid_mid | mid_right
-                bot_left | bot_mid | bot_right
+            # player makes a move // should be a separate method
+            loop do
+                # a capitol %Q is used in order to use string interpolation
+                $stdout.puts %Q{
+                    #{@player_turn.name}, please select your move
 
-            }
-            $stdout.flush
-            @location = gets.chomp.to_sym
+                    top_left | top_mid | top_right
+                    mid_left | mid_mid | mid_right
+                    bot_left | bot_mid | bot_right
 
-            # needs to be updated
-            if @board.table.has_key?(@location) && @board.table[@location] == nil
-                @board.table[@location] = @player_turn.symbol
-            else
-                puts "ERROR"
+                }
+                $stdout.flush
+                @location = gets.chomp.to_sym
+
+                # needs to be updated
+                if @board.table.has_key?(@location) && @board.table[@location] == nil
+                    @board.table[@location] = @player_turn.symbol
+                    break
+                elsif @board.table[@location] != nil
+                    puts "That location is already taken. Please select a valid move"
+                elsif !@board.table.has_key?(@location)
+                    puts "That location doesn't exist. Please select a valid move"
+                end
             end
 
-            # these things occur after each turn
-            # check for winner will also be added here
+
+            # these things occur after each turn // should be a separate method
             @board.display_board
 
             @count += 1
@@ -80,21 +89,24 @@ class TicTacToe
             else
                 @turn = 0
             end
+
+            # check_winner will go here
         end
     end
 
 
 
     # Player just holds data
-    class Player
-        attr_accessor :name
-        attr_reader :symbol
+    Player = Struct.new(:name, :symbol)
+    # class Player
+    #     attr_accessor :name
+    #     attr_reader :symbol
 
-        def initialize(name, symbol)
-            @name = name
-            @symbol = symbol
-        end
-    end
+    #     def initialize(name, symbol)
+    #         @name = name
+    #         @symbol = symbol
+    #     end
+    # end
 
 
     # Gameboard holds logic
@@ -146,5 +158,5 @@ end
 
 
 # example gameplay
-my_game = TicTacToe.new("Dave", "Regg")
+my_game = TicTacToe.new("Dave", "Mike")
 my_game.play
