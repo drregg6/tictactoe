@@ -5,7 +5,6 @@ TODO
 - IF square doesn't exist, choose another one
 - new method: check_for_winner
 - IF check_for_winner is true, exit game
-- display rules upon initialize
 
 =end
 
@@ -36,18 +35,21 @@ class TicTacToe
         @turn = 0
 
         while @count < 9 # or if there's a winner
+            # select a random player
             if @count == 0
-                @player_turn = players.sample
+                @player_turn = @players.sample
 
+                # used to alternate between turns
                 if @player_turn == @p1
                     @turn = 0
                 else
                     @turn = 1
                 end
             else
-                @player_turn = players[@turn]
+                @player_turn = @players[@turn]
             end
 
+            # a capitol %Q is used in order to use string interpolation
             $stdout.puts %Q{
                 #{@player_turn.name}, please select your move
 
@@ -58,15 +60,21 @@ class TicTacToe
             }
             $stdout.flush
             @location = gets.chomp.to_sym
+
+            # needs to be updated
             if @board.table.has_key?(@location) && @board.table[@location] == nil
                 @board.table[@location] = @player_turn.symbol
             else
                 puts "ERROR"
             end
+
+            # these things occur after each turn
+            # check for winner will also be added here
             @board.display_board
 
             @count += 1
 
+            # turn swaps after each turn
             if (@turn == 0)
                 @turn = 1
             else
