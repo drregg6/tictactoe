@@ -1,11 +1,6 @@
 =begin
 
-Player should be its own class?
-Player doesn't seem to be accessible unless you put in TicTacToe
-
 TODO
-- random player's turn, then swap back and forth
-- add IF statements
 - IF square is taken, choose another one
 - IF square doesn't exist, choose another one
 - new method: check_for_winner
@@ -19,16 +14,14 @@ class TicTacToe
     @@rules = %q{
 
         HOW TO PLAY TIC TAC TOE:
-        - sing a song
-        - play a long
-        - give up
+        - Player order is selected at random
+        - Player selects an available location
+        - Object of the game: get three in a row
 
     }
 
     def initialize(p1, p2)
         # default symbols, cannot be accessed or changed
-        # will have "random" for game order
-        # where game states "player.name"s turn to go
         @p1 = Player.new(p1="Player One", symbol="X")
         @p2 = Player.new(p2="Player Two", symbol="O")
         @players = []
@@ -40,25 +33,45 @@ class TicTacToe
 
     def play
         @count = 0
+        @turn = 0
 
-        while @count < 3
-            # if @count == 0
-            #     @player = players.sample
-            # else
-            #     @player == #opposite player
-            # end
+        while @count < 9 # or if there's a winner
+            if @count == 0
+                @player_turn = players.sample
 
-            $stdout.puts "Please enter your move"
+                if @player_turn == @p1
+                    @turn = 0
+                else
+                    @turn = 1
+                end
+            else
+                @player_turn = players[@turn]
+            end
+
+            $stdout.puts %Q{
+                #{@player_turn.name}, please select your move
+
+                top_left | top_mid | top_right
+                mid_left | mid_mid | mid_right
+                bot_left | bot_mid | bot_right
+
+            }
             $stdout.flush
             @location = gets.chomp.to_sym
             if @board.table.has_key?(@location) && @board.table[@location] == nil
-                @board.table[@location] = 'x'
+                @board.table[@location] = @player_turn.symbol
             else
                 puts "ERROR"
             end
             @board.display_board
 
             @count += 1
+
+            if (@turn == 0)
+                @turn = 1
+            else
+                @turn = 0
+            end
         end
     end
 
@@ -126,10 +139,4 @@ end
 
 # example gameplay
 my_game = TicTacToe.new("Dave", "Regg")
-puts my_game.players[1].name
-puts my_game.players[1].symbol
-puts my_game.players
-# my_game.display_board
-# my_game.move(@p1, :mid_mid)
-my_game.board.display_board
 my_game.play
