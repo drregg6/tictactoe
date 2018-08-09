@@ -1,8 +1,6 @@
 =begin
 
 TODO
-- IF square is taken, choose another one
-- IF square doesn't exist, choose another one
 - new method: check_for_winner
 - IF check_for_winner is true, exit game
 
@@ -19,7 +17,7 @@ class TicTacToe
 
     }
 
-    def initialize(p1, p2)
+    def initialize(p1=nil, p2=nil)
         # default symbols, cannot be accessed or changed
         @p1 = Player.new(p1, symbol="X")
         @p2 = Player.new(p2, symbol="O")
@@ -97,16 +95,20 @@ class TicTacToe
 
 
     # Player just holds data
-    Player = Struct.new(:name, :symbol)
-    # class Player
-    #     attr_accessor :name
-    #     attr_reader :symbol
+    # Player = Struct.new(:name, :symbol)
+    class Player
+        attr_accessor :name
+        attr_reader :symbol
 
-    #     def initialize(name, symbol)
-    #         @name = name
-    #         @symbol = symbol
-    #     end
-    # end
+        def initialize(name=nil, symbol)
+            @symbol = symbol
+            if name != nil
+                @name = name
+            else
+                @name = "PLAYER #{symbol}"
+            end
+        end
+    end
 
 
     # Gameboard holds logic
