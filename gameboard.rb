@@ -12,7 +12,7 @@ to show the updated gameboard
 =end
 
 class Gameboard
-    attr_accessor :table, :board, :the_winner, :winners_table
+    attr_accessor :table, :board, :the_winner, :winning_tables
 
     def initialize
         @table = {
@@ -55,25 +55,24 @@ class Gameboard
     end
 
     def winning_tables
-        @winners_table = {
-            top: [:top_left, :top_mid, :top_right],
-            mid_across: [:mid_left, :mid_mid, :mid_right],
-            bot: [:bot_left, :bot_mid, :bot_right],
-            left: [:top_left, :mid_left, :bot_left],
-            mid_down: [:top_mid, :mid_mid, :bot_mid],
-            right: [:top_right, :mid_right, :bot_right],
-            dia_right: [:top_left, :mid_mid, :bot_right],
-            dia_left: [:top_right, :mid_mid, :bot_left]
+        @winning_tables = {
+            top: [@table[:top_left], @table[:top_mid], @table[:top_right]],
+            mid_across: [@table[:mid_left], @table[:mid_mid], @table[:mid_right]],
+            bot: [@table[:bot_left], @table[:bot_mid], @table[:bot_right]],
+            left: [@table[:top_left], @table[:mid_left], @table[:bot_left]],
+            mid_down: [@table[:top_mid], @table[:mid_mid], @table[:bot_mid]],
+            right: [@table[:top_right], @table[:mid_right], @table[:bot_right]],
+            dia_right: [@table[:top_left], @table[:mid_mid], @table[:bot_right]],
+            dia_left: [@table[:top_right], @table[:mid_mid], @table[:bot_left]]
         }
     end
 
     def check_winner
-        winning_tables.each_value do |array|
-            # print array.to_s + "\n"
-            if array.all? { |location| @table[location] == "x"}
-                @the_winner = 0
-            elsif array.all? { |location| @table[location] == "o"}
-                @the_winner = 1
+        @the_winner = "HELLO WORLD"
+        winning_tables.each_value do |arr|
+            print arr.to_s + "\n"
+            if !arr.include?(nil) && arr.uniq.size <= 1
+                @the_winner = "WINNER"
             end
             # if array.all? { |locations| @table[locations] == 'x'} || array.all? { |locations| @table[locations] == "o"}
             #     @the_winner = 'HELLO WORLD'

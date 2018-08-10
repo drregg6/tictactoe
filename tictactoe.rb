@@ -9,7 +9,7 @@ TODO
 
 
 class TicTacToe
-    attr_accessor :player, :players, :board, :gameboard, :is_won
+    attr_accessor :player, :players, :board, :gameboard, :is_won, :the_winner
     @@rules = %q{
 
                         HOW TO PLAY TIC TAC TOE:
@@ -99,14 +99,12 @@ class TicTacToe
             @is_won = @board.check_winner
 
             puts @is_won
-            # puts is_won
-            # if @is_won == 0
-            #     puts "#{@p1.name.upcase} IS THE WINNER!"
-            #     break
+            if @is_won == "WINNER"
+                break
             # elsif @is_won == 1
             #     puts "#{@p2.name.upcase} IS THE WINNER!"
             #     break
-            # end
+            end
 
             @count += 1
 
