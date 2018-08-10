@@ -27,14 +27,14 @@ class Gameboard
 
     def initialize
         @table = {
-            top_left: 'x',
-            top_mid: 'x',
-            top_right: 'x',
+            top_left: nil,
+            top_mid: nil,
+            top_right: nil,
             mid_left: nil,
             mid_mid: nil,
-            mid_right: 'o',
+            mid_right: nil,
             bot_left: nil,
-            bot_mid: 'x',
+            bot_mid: nil,
             bot_right: nil
         }
     end
