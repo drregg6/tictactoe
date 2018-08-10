@@ -65,11 +65,11 @@ class Gameboard
 
     def check_winner
         @@winners.each_value do |array|
-            print array.to_s + "\n"
+            # print array.to_s + "\n"
             if array.all? { |locations| @table[locations] == "x"}
-                puts "WINNER"
+                return 0
             elsif array.all? { |locations| @table[locations] == "o"}
-                puts "WINNER"
+                return 1
             end
             # array.each do |locations|
             #     puts @table[locations]
@@ -78,6 +78,6 @@ class Gameboard
     end
 end
 
-my_board = Gameboard.new
-my_board.display_board
-my_board.check_winner
+# my_board = Gameboard.new
+# my_board.display_board
+# my_board.check_winner

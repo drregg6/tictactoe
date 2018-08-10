@@ -91,6 +91,13 @@ class TicTacToe
             end
 
             # check_winner will go here
+            if @board.check_winner == 0
+                puts "#{@p1.name} IS THE WINNER!"
+                return
+            elsif @board.check_winner == 1
+                puts "#{@p2.name} IS THE WINNER!"
+                return
+            end
         end
     end
 
