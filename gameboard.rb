@@ -12,7 +12,7 @@ to show the updated gameboard
 =end
 
 class Gameboard
-    attr_accessor :table, :board
+    attr_accessor :table, :board, :the_winner
 
     @@winners = {
         top: [:top_left, :top_mid, :top_right],
@@ -58,26 +58,33 @@ class Gameboard
     end
 
     def display_board
+        puts "\n"
         create_board.each do |row|
-            puts row.join
+            puts row.join.center(75)
         end
+        puts "\n"
     end
 
     def check_winner
         @@winners.each_value do |array|
             # print array.to_s + "\n"
             if array.all? { |locations| @table[locations] == "x"}
-                return 0
+                @the_winner = 0
             elsif array.all? { |locations| @table[locations] == "o"}
-                return 1
+                @the_winner = 1
             end
+            # if array.all? { |locations| @table[locations] == 'x'} || array.all? { |locations| @table[locations] == "o"}
+            #     @the_winner = 'HELLO WORLD'
+            # end
             # array.each do |locations|
             #     puts @table[locations]
             # end
         end
+        @the_winner
     end
 end
 
 # my_board = Gameboard.new
 # my_board.display_board
-# my_board.check_winner
+# my_var = my_board.check_winner
+# puts my_var

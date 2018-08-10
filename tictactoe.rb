@@ -2,20 +2,28 @@ require './gameboard'
 =begin
 
 TODO
-- new method: check_for_winner
-- IF check_for_winner is true, exit game
+- IF check_winner is true, exit game
+- check_winner is not checking after each turn
 
 =end
 
 
 class TicTacToe
-    attr_accessor :player, :players, :board, :gameboard
+    attr_accessor :player, :players, :board, :gameboard, :is_won
     @@rules = %q{
 
-        HOW TO PLAY TIC TAC TOE:
-        - Player order is selected at random
-        - Player selects an available location
-        - Object of the game: get three in a row
+                        HOW TO PLAY TIC TAC TOE:
+                    Player order is selected at random
+                    Player selects an available location
+                    Object of the game: get three in a row
+
+
+                              VALID LOCATIONS
+                      top_left | top_mid | top_right
+                      mid_left | mid_mid | mid_right
+                      bot_left | bot_mid | bot_right
+
+
 
     }
 
@@ -35,7 +43,6 @@ class TicTacToe
         @turn = 0
 
         while @count < 9 # or if there's a winner
-
 
             # select a random player // should be a separate method
             if @count == 0
@@ -57,11 +64,6 @@ class TicTacToe
                 # a capitol %Q is used in order to use string interpolation
                 $stdout.puts %Q{
                     #{@player_turn.name}, please select your move
-
-                    top_left | top_mid | top_right
-                    mid_left | mid_mid | mid_right
-                    bot_left | bot_mid | bot_right
-
                 }
                 $stdout.flush
                 @location = gets.chomp.to_sym
@@ -71,15 +73,39 @@ class TicTacToe
                     @board.table[@location] = @player_turn.symbol
                     break
                 elsif @board.table[@location] != nil
-                    puts "That location is already taken. Please select a valid move"
+                    puts %Q{
+                That location is already taken. Please select a valid move
+
+                        top_left | top_mid | top_right
+                        mid_left | mid_mid | mid_right
+                        bot_left | bot_mid | bot_right
+                    }
                 elsif !@board.table.has_key?(@location)
-                    puts "That location doesn't exist. Please select a valid move"
+                    puts %Q{
+                That location doesn't exist. Please select a valid move
+
+                        top_left | top_mid | top_right
+                        mid_left | mid_mid | mid_right
+                        bot_left | bot_mid | bot_right
+                    }
                 end
             end
 
 
             # these things occur after each turn // should be a separate method
             @board.display_board
+
+            # check_winner will go here
+            @is_won = @board.check_winner
+
+            # puts is_won
+            if @is_won == 0
+                puts "#{@p1.name.upcase} IS THE WINNER!"
+                break
+            elsif @is_won == 1
+                puts "#{@p2.name.upcase} IS THE WINNER!"
+                break
+            end
 
             @count += 1
 
@@ -90,14 +116,6 @@ class TicTacToe
                 @turn = 0
             end
 
-            # check_winner will go here
-            if @board.check_winner == 0
-                puts "#{@p1.name} IS THE WINNER!"
-                return
-            elsif @board.check_winner == 1
-                puts "#{@p2.name} IS THE WINNER!"
-                return
-            end
         end
     end
 
