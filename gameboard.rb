@@ -12,18 +12,7 @@ to show the updated gameboard
 =end
 
 class Gameboard
-    attr_accessor :table, :board, :the_winner
-
-    @@winners = {
-        top: [:top_left, :top_mid, :top_right],
-        mid_across: [:mid_left, :mid_mid, :mid_right],
-        bot: [:bot_left, :bot_mid, :bot_right],
-        left: [:top_left, :mid_left, :bot_left],
-        mid_down: [:top_mid, :mid_mid, :bot_mid],
-        right: [:top_right, :mid_right, :bot_right],
-        dia_right: [:top_left, :mid_mid, :bot_right],
-        dia_left: [:top_right, :mid_mid, :bot_left]
-    }
+    attr_accessor :table, :board, :the_winner, :winners_table
 
     def initialize
         @table = {
@@ -65,12 +54,25 @@ class Gameboard
         puts "\n"
     end
 
+    def winning_tables
+        @winners_table = {
+            top: [:top_left, :top_mid, :top_right],
+            mid_across: [:mid_left, :mid_mid, :mid_right],
+            bot: [:bot_left, :bot_mid, :bot_right],
+            left: [:top_left, :mid_left, :bot_left],
+            mid_down: [:top_mid, :mid_mid, :bot_mid],
+            right: [:top_right, :mid_right, :bot_right],
+            dia_right: [:top_left, :mid_mid, :bot_right],
+            dia_left: [:top_right, :mid_mid, :bot_left]
+        }
+    end
+
     def check_winner
-        @@winners.each_value do |array|
+        winning_tables.each_value do |array|
             # print array.to_s + "\n"
-            if array.all? { |locations| @table[locations] == "x"}
+            if array.all? { |location| @table[location] == "x"}
                 @the_winner = 0
-            elsif array.all? { |locations| @table[locations] == "o"}
+            elsif array.all? { |location| @table[location] == "o"}
                 @the_winner = 1
             end
             # if array.all? { |locations| @table[locations] == 'x'} || array.all? { |locations| @table[locations] == "o"}
@@ -85,6 +87,10 @@ class Gameboard
 end
 
 # my_board = Gameboard.new
+# my_board.display_board
+# my_var = my_board.check_winner
+# puts my_var
+# my_board.table[:top_right] = 'x'
 # my_board.display_board
 # my_var = my_board.check_winner
 # puts my_var

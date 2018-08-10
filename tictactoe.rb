@@ -98,14 +98,15 @@ class TicTacToe
             # check_winner will go here
             @is_won = @board.check_winner
 
+            puts @is_won
             # puts is_won
-            if @is_won == 0
-                puts "#{@p1.name.upcase} IS THE WINNER!"
-                break
-            elsif @is_won == 1
-                puts "#{@p2.name.upcase} IS THE WINNER!"
-                break
-            end
+            # if @is_won == 0
+            #     puts "#{@p1.name.upcase} IS THE WINNER!"
+            #     break
+            # elsif @is_won == 1
+            #     puts "#{@p2.name.upcase} IS THE WINNER!"
+            #     break
+            # end
 
             @count += 1
 
