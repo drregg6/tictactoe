@@ -1,3 +1,4 @@
+require './gameboard'
 =begin
 
 TODO
@@ -5,6 +6,7 @@ TODO
 - IF check_for_winner is true, exit game
 
 =end
+
 
 class TicTacToe
     attr_accessor :player, :players, :board, :gameboard
@@ -94,14 +96,13 @@ class TicTacToe
 
 
 
-    # Player just holds data
-    # Player = Struct.new(:name, :symbol)
     class Player
         attr_accessor :name
         attr_reader :symbol
 
         def initialize(name=nil, symbol)
             @symbol = symbol
+            # names are optional, default will be PLAYER X or PLAYER O
             if name != nil
                 @name = name
             else
@@ -109,56 +110,9 @@ class TicTacToe
             end
         end
     end
-
-
-    # Gameboard holds logic
-    class Gameboard
-        attr_accessor :table
-
-
-        def initialize
-            @table = {
-                top_left: nil,
-                top_mid: nil,
-                top_right: nil,
-                mid_left: nil,
-                mid_mid: nil,
-                mid_right: nil,
-                bot_left: nil,
-                bot_mid: nil,
-                bot_right: nil
-            }
-        end
-
-        def create_board
-            @top_left = @table[:top_left] == nil ? '_' : @table[:top_left]
-            @top_mid = @table[:top_mid] == nil ? '|_|' : "|#{@table[:top_mid]}|"
-            @top_right = @table[:top_right] == nil ? '_' : @table[:top_right]
-            @mid_left = @table[:mid_left] == nil ? '_' : @table[:mid_left]
-            @mid_mid = @table[:mid_mid] == nil ? '|_|' : "|#{@table[:mid_mid]}|"
-            @mid_right = @table[:mid_right] == nil ? '_' : @table[:mid_right]
-            @bot_left = @table[:bot_left] == nil ? ' ' : @table[:bot_left]
-            @bot_mid = @table[:bot_mid] == nil ? '| |' : "|#{@table[:bot_mid]}|"
-            @bot_right = @table[:bot_right] == nil ? ' ' : @table[:bot_right]
-
-            @board = [
-                [@top_left, @top_mid, @top_right],
-                [@mid_left, @mid_mid, @mid_right],
-                [@bot_left, @bot_mid, @bot_right]
-            ]
-        end
-
-        def display_board
-            puts "\n\n\n"
-            create_board.each do |row|
-                puts row.join
-            end
-            puts "\n\n\n"
-        end
-    end
 end
 
 
 # example gameplay
-my_game = TicTacToe.new("Dave", "Mike")
+my_game = TicTacToe.new("Dave", "Cynthia")
 my_game.play
