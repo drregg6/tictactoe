@@ -68,19 +68,16 @@ class Gameboard
     end
 
     def check_winner
-        @the_winner = "HELLO WORLD"
+        # @the_winner = "HELLO WORLD"
         winning_tables.each_value do |arr|
-            print arr.to_s + "\n"
+            # if the return array is only ONE string, and it's NOT nil
             if !arr.include?(nil) && arr.uniq.size <= 1
-                @the_winner = "WINNER"
+                # declare that person the winner
+                # puts arr.uniq[0]
+                @the_winner = arr.uniq[0]
             end
-            # if array.all? { |locations| @table[locations] == 'x'} || array.all? { |locations| @table[locations] == "o"}
-            #     @the_winner = 'HELLO WORLD'
-            # end
-            # array.each do |locations|
-            #     puts @table[locations]
-            # end
         end
+        # return the_winner
         @the_winner
     end
 end
