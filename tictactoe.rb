@@ -2,8 +2,7 @@ require './gameboard'
 =begin
 
 TODO
-- IF check_winner is true, exit game
-- check_winner is not checking after each turn
+- split TicTacToe.play into separate methods
 
 =end
 
@@ -45,21 +44,22 @@ class TicTacToe
         while @count < 9 # or if there's a winner
 
             # select a random player // should be a separate method
+            # def swap_turn
             if @count == 0
                 @player_turn = @players.sample
 
                 # used to alternate between turns
-                if @player_turn == @p1
-                    @turn = 0
-                else
-                    @turn = 1
-                end
+                @player_turn == @p1 ? @turn = 0 : @turn = 1
             else
+                # turn swaps after each turn
+                @turn == 0 ? @turn = 1 : @turn = 0
+
                 @player_turn = @players[@turn]
             end
 
 
             # player makes a move // should be a separate method
+            # def player_move
             loop do
                 # a capitol %Q is used in order to use string interpolation
                 $stdout.puts %Q{
@@ -93,6 +93,7 @@ class TicTacToe
 
 
             # these things occur after each turn // should be a separate method
+            # def check_for_winner
             @board.display_board
 
             # check_winner will go here
@@ -108,13 +109,6 @@ class TicTacToe
             end
 
             @count += 1
-
-            # turn swaps after each turn
-            if (@turn == 0)
-                @turn = 1
-            else
-                @turn = 0
-            end
 
         end
     end

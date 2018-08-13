@@ -73,7 +73,6 @@ class Gameboard
             # if the return array is only ONE string, and it's NOT nil
             if !arr.include?(nil) && arr.uniq.size <= 1
                 # declare that person the winner
-                # puts arr.uniq[0]
                 @the_winner = arr.uniq[0]
             end
         end
