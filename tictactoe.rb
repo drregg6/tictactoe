@@ -79,14 +79,9 @@ class TicTacToe
             end
 
 
-            # these things occur after each turn // should be a separate method
+            # these things occur after each turn
             @board.display_board
-
-            if @board.check_winner
-                puts "#{@turn.name} wins!".upcase
-                break
-            end
-
+            break if @board.check_for_winner(@turn.name) == true
             @count += 1
             @turn == @p1 ? @turn = @p2 : @turn = @p1
 

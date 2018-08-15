@@ -61,15 +61,16 @@ class Gameboard
         }
     end
 
-    def check_winner
+    def check_for_winner(player)
         winning_tables.each_value do |arr|
             # if the return array is only ONE string, and it's NOT nil
             if !arr.include?(nil) && arr.uniq.size <= 1
                 # declare that person the winner
+                puts "#{player} wins!".upcase
                 return true
             end
         end
-        false
+        return false
     end
 end
 
