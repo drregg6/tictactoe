@@ -1,13 +1,7 @@
 =begin
 
-should moves be underline?
-should i go back to large squares?
-
 the table will be dynamically updated
 each time a player sets a move
-
-after each move, .show_board will be fired
-to show the updated gameboard
 
 =end
 

@@ -3,6 +3,8 @@ require './gameboard'
 
 TODO
 - split TicTacToe.play into separate methods
+    module is not an answer
+    modules can be called by an Object, not a Class
 
 =end
 
@@ -39,38 +41,23 @@ class TicTacToe
 
     def play
         @count = 0
-        @turn = 0
+        @turn = @players.sample
 
-        while @count < 9 # or if there's a winner
-
-            # select a random player // should be a separate method
-            # def swap_turn
-            if @count == 0
-                @player_turn = @players.sample
-
-                # used to alternate between turns
-                @player_turn == @p1 ? @turn = 0 : @turn = 1
-            else
-                # turn swaps after each turn
-                @turn == 0 ? @turn = 1 : @turn = 0
-
-                @player_turn = @players[@turn]
-            end
-
+        while @count < 9
 
             # player makes a move // should be a separate method
             # def player_move
             loop do
                 # a capitol %Q is used in order to use string interpolation
                 $stdout.puts %Q{
-                    #{@player_turn.name}, please select your move
+                    #{@turn.name}, please select your move
                 }
                 $stdout.flush
                 @location = gets.chomp.to_sym
 
                 # needs to be updated
                 if @board.table.has_key?(@location) && @board.table[@location] == nil
-                    @board.table[@location] = @player_turn.symbol
+                    @board.table[@location] = @turn.symbol
                     break
                 elsif @board.table[@location] != nil
                     puts %Q{
@@ -109,6 +96,7 @@ class TicTacToe
             end
 
             @count += 1
+            @turn == @p1 ? @turn = @p2 : @turn = @p1
 
         end
     end
