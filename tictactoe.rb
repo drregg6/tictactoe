@@ -18,13 +18,13 @@ class TicTacToe
                     Player selects an available location
                     Object of the game: get three in a row
 
+    }
+    @@grid = %q{
 
-                              VALID LOCATIONS
-                      top_left | top_mid | top_right
-                      mid_left | mid_mid | mid_right
-                      bot_left | bot_mid | bot_right
-
-
+                          VALID LOCATIONS
+                    top_left | top_mid | top_right
+                    mid_left | mid_mid | mid_right
+                    bot_left | bot_mid | bot_right
 
     }
 
@@ -37,6 +37,7 @@ class TicTacToe
         # new board needs to be built with each new game
         @board = Gameboard.new
         puts @@rules
+        puts @@grid
     end
 
     def play
@@ -46,7 +47,6 @@ class TicTacToe
         while @count < 9
 
             # player makes a move // should be a separate method
-            # def player_move
             loop do
                 # a capitol %Q is used in order to use string interpolation
                 $stdout.puts %Q{
@@ -55,26 +55,15 @@ class TicTacToe
                 $stdout.flush
                 @location = gets.chomp.to_sym
 
-                # needs to be updated
                 if @board.table.has_key?(@location) && @board.table[@location] == nil
                     @board.table[@location] = @turn.symbol
                     break
                 elsif @board.table[@location] != nil
-                    puts %Q{
-                That location is already taken. Please select a valid move
-
-                        top_left | top_mid | top_right
-                        mid_left | mid_mid | mid_right
-                        bot_left | bot_mid | bot_right
-                    }
+                    puts "\n\nThat location is already taken".center(75)
+                    puts @@grid
                 elsif !@board.table.has_key?(@location)
-                    puts %Q{
-                That location doesn't exist. Please select a valid move
-
-                        top_left | top_mid | top_right
-                        mid_left | mid_mid | mid_right
-                        bot_left | bot_mid | bot_right
-                    }
+                    puts "\n\nThat location doesn't exist".center(75)
+                    puts @@grid
                 end
             end
 
