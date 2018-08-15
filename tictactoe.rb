@@ -80,18 +80,10 @@ class TicTacToe
 
 
             # these things occur after each turn // should be a separate method
-            # def check_for_winner
             @board.display_board
 
-            # check_winner will go here
-            @is_won = @board.check_winner
-
-            # puts @is_won
-            if @is_won == "X"
-                puts "#{@p1.name} is the winner!".upcase
-                break
-            elsif @is_won == "O"
-                puts "#{@p2.name.upcase} is the winner!".upcase
+            if @board.check_winner
+                puts "#{@turn.name} wins!".upcase
                 break
             end
 

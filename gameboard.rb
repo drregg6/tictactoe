@@ -62,16 +62,14 @@ class Gameboard
     end
 
     def check_winner
-        # @the_winner = "HELLO WORLD"
         winning_tables.each_value do |arr|
             # if the return array is only ONE string, and it's NOT nil
             if !arr.include?(nil) && arr.uniq.size <= 1
                 # declare that person the winner
-                @the_winner = arr.uniq[0]
+                return true
             end
         end
-        # return the_winner
-        @the_winner
+        false
     end
 end
 
