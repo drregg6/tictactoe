@@ -1,13 +1,12 @@
-require './gameboard'
 =begin
 
 TODO
 - split TicTacToe.play into separate methods
-    module is not an answer
-    modules can be called by an Object, not a Class
 
 =end
 
+require './gameboard'
+require './player'
 
 class TicTacToe
     attr_accessor :player, :players, :board, :gameboard, :is_won, :the_winner
@@ -32,10 +31,9 @@ class TicTacToe
         # default symbols, cannot be accessed or changed
         @p1 = Player.new(p1, symbol="X")
         @p2 = Player.new(p2, symbol="O")
-        @players = []
-        @players << @p1 << @p2
-        # new board needs to be built with each new game
         @board = Gameboard.new
+        @players = [@p1, @p2]
+        # new board needs to be built with each new game
         puts @@rules
         puts @@grid
     end
@@ -74,23 +72,6 @@ class TicTacToe
             @count += 1
             @turn == @p1 ? @turn = @p2 : @turn = @p1
 
-        end
-    end
-
-
-
-    class Player
-        attr_accessor :name
-        attr_reader :symbol
-
-        def initialize(name=nil, symbol)
-            @symbol = symbol
-            # names are optional, default will be PLAYER X or PLAYER O
-            if name != nil
-                @name = name
-            else
-                @name = "PLAYER #{symbol}"
-            end
         end
     end
 end
